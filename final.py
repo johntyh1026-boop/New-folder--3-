@@ -3,7 +3,6 @@ from tkinter import ttk
 from tkinter import Canvas
 from datetime import datetime
 from tkinter import messagebox
-import uuid
 import random
 
 # ================== THEME ==================
@@ -306,7 +305,6 @@ class CMMSApp:
         list_frame = Frame(self.main_area, bg=BG_COLOR)
         list_frame.pack(padx=30, pady=10, fill="both", expand=True)
 
-        # 使用Treeview而不是Listbox以显示更多信息
         columns = ("Date", "Unit Number", "Incident / Defect", "Location","Assign To","Issues Status")
         self.tree_check = ttk.Treeview(list_frame, columns=columns, show="headings", height=8)
         scrollbar = Scrollbar(list_frame, orient="vertical", command=self.tree_check.yview)
@@ -463,15 +461,12 @@ class CMMSApp:
         
         self.tree_check.bind("<<TreeviewSelect>>", on_tree_select)
 
-        # 搜索功能
         def on_search_treeview():
             search_text = self.search_var_check.get().lower()
             
-            # 清除当前显示
             for item in self.tree_check.get_children():
                 self.tree_check.delete(item)
             
-            # 过滤和显示记录
             for record in self.records:
                 all_text = ' '.join(str(value).lower() for value in record.values())
                 if search_text in all_text:
@@ -586,11 +581,9 @@ class CMMSApp:
         def on_search_treeview_repeat():
             search_text = self.search_var_repeat.get().lower()
             
-            # 清除当前显示
             for item in self.tree_repeat.get_children():
                 self.tree_repeat.delete(item)
             
-            # 过滤和显示记录
             for record in self.records:
                 all_text = ' '.join(str(value).lower() for value in record.values())
                 if search_text in all_text:
@@ -610,12 +603,10 @@ class CMMSApp:
         header_frame = Frame(self.main_area, bg=BG_COLOR)
         header_frame.pack(fill="x", padx=30, pady=20)
         
-        # 标题在左边
         Label(header_frame, text="View Requests",
               font=("Segoe UI", 28, "bold"),
               bg=BG_COLOR, fg="white").pack(side="left", anchor="w")
         
-        # 搜索框在右边
         search_frame = Frame(header_frame, bg=BG_COLOR)
         search_frame.pack(side="right", anchor="e")
         
@@ -758,7 +749,6 @@ class CMMSApp:
             for item in self.tree_requests.get_children():
                 self.tree_requests.delete(item)
             
-            # 过滤和显示记录
             for record in self.records:
                 all_text = ' '.join(str(value).lower() for value in record.values())
                 if search_text in all_text:
@@ -831,8 +821,6 @@ class CMMSApp:
         self.show_requests()
     
     def save_data(self):
-        # 这里应该实现数据保存到文件的功能
-        # 目前是占位函数
         pass
 
 # ================== RUN ==================
